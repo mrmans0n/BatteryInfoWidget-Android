@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, BatteryInfoWidget!</string>
+    <string name="app_name">Battery Info Widget</string>
+    <string name="this_is_a_widget">Esto es un widget, y debe añadirse como tal.\n\nDeberá pulsar en el fondo del escritorio unos segundos hasta que salga un menú contextual, en el que deberá elegir &quot;Widgets&quot;. Allí elige Battery Info Widget, y ya está.\n\nEste widget ocupa 2 casillas horizontales.</string>
+    <string name="batt_level">Carga</string>
+    <string name="batt_time">Estimado</string>
+    <string name="batt_charging">Cargando</string>
+    <string name="batt_remaining">Restante</string>
+    <string name="batt_status_good">Buena</string>
+    <string name="batt_status_dead">Muerta</string>
+    <string name="batt_status_overvoltage">Sobrevoltaje</string>
+    <string name="batt_status_overheat">Sobrecalentada</string>
+</resources>

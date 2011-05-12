@@ -2,13 +2,13 @@
 <resources>
     <string name="hello">Hello World, BatteryInfoWidget!</string>
     <string name="app_name">Battery Info Widget</string>
-    <string name="this_is_a_widget">Esto es un widget, y debe añadirse como tal</string>
-    <string name="batt_level">Carga</string>
-    <string name="batt_time">Estimado</string>
-    <string name="batt_charging">Cargando</string>
-    <string name="batt_remaining">Restante</string>
-    <string name="batt_status_good">Buena</string>
-    <string name="batt_status_dead">Muerta</string>
-    <string name="batt_status_overvoltage">Sobrevoltaje</string>
-    <string name="batt_status_overheat">Sobrecalentada</string>
+    <string name="this_is_a_widget">This is a widget and should be added like it.\n\nYou should do a long-press in the desktop until you see a contextual menu, and then click the option called Widgets. There you can choose Battery Info Widget, and that\'s it.\n\nThis widget uses two horizontal tiles of space.</string>
+    <string name="batt_level">Charge</string>
+    <string name="batt_time">Estimated</string>
+    <string name="batt_charging">Charging</string>
+    <string name="batt_remaining">Remaining</string>
+    <string name="batt_status_good">Good</string>
+    <string name="batt_status_dead">Dead</string>
+    <string name="batt_status_overvoltage">Over-voltage</string>
+    <string name="batt_status_overheat">Overheat</string>
 </resources>

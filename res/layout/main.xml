@@ -4,7 +4,10 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
+    <ImageView android:layout_width="fill_parent" android:layout_height="wrap_content" android:src="@drawable/audev" android:id="@+id/imageView1"></ImageView>
+    <TextView android:id="@+id/TextView01" android:layout_height="wrap_content" android:text="Copyright (c) 2011 AUDev" android:layout_width="fill_parent" android:gravity="center"></TextView>
+    <TextView android:clickable="true" android:textColorLink="#0000ff" android:textStyle="bold" android:id="@+id/linkAUDev" android:linksClickable="true" android:layout_height="wrap_content" android:text="http://www.audev.net" android:layout_width="fill_parent" android:gravity="center"></TextView>
 <TextView  
     android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" android:text="@string/this_is_a_widget"/>
+    android:layout_height="wrap_content" android:text="@string/this_is_a_widget" android:layout_marginTop="10dip"/>
 </LinearLayout>
