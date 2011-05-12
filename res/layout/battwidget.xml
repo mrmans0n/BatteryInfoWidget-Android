@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent" android:background="@drawable/fondo_widget" android:orientation="vertical">
+    <LinearLayout android:id="@+id/fondo" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_margin="2dip">
+        <LinearLayout android:id="@+id/linearLayout2" android:layout_height="fill_parent" android:orientation="vertical" android:layout_width="fill_parent" android:layout_weight="1">
+            <TextView android:layout_height="wrap_content" android:text="@string/batt_level" android:textSize="12sp" android:layout_width="fill_parent" android:gravity="center" android:id="@+id/carga"></TextView>
+            <TextView android:id="@+id/nivel" android:text="0%" android:textStyle="bold" android:textSize="16sp" android:layout_width="fill_parent" android:gravity="center" android:layout_height="fill_parent" android:layout_weight="1"></TextView>
+            <TextView android:id="@+id/temp" android:text="69ºC" android:textSize="12sp" android:layout_height="wrap_content" android:layout_width="fill_parent" android:gravity="center"></TextView>
+        </LinearLayout>
+        <LinearLayout android:id="@+id/linearLayout3" android:layout_height="fill_parent" android:orientation="vertical" android:layout_width="fill_parent" android:layout_weight="1">
+            <TextView android:layout_height="wrap_content" android:text="@string/batt_time" android:id="@+id/estado" android:textSize="12sp" android:layout_width="fill_parent" android:gravity="center"></TextView>
+            <TextView android:textStyle="bold" android:text="1h20m" android:id="@+id/tiempo" android:textSize="16sp" android:layout_width="fill_parent" android:gravity="center" android:layout_weight="1" android:layout_height="fill_parent"></TextView>
+            <TextView android:layout_width="fill_parent" android:textSize="12sp" android:layout_height="wrap_content" android:gravity="center" android:id="@+id/salud" android:text="Buena o mala"></TextView>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
