@@ -1,5 +1,14 @@
 package net.audev.batteryinfowidget;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.io.StringReader;
 import java.util.LinkedList;
 
 import android.app.Service;
@@ -33,6 +42,9 @@ public class BatteryInfo extends AppWidgetProvider {
 	 */
 	public static class UpdateWidgetService extends Service {		
 		private static final String TAG = "BatteryInfo";
+		private static final String FILE_CARGA = "carga.dat";
+		private static final String FILE_DESCARGA = "descarga.dat";
+		
 		String oldTitulo;
 		AppWidgetManager manager;
 		RemoteViews updateViews; 
@@ -50,6 +62,7 @@ public class BatteryInfo extends AppWidgetProvider {
 		LinkedList<Long> tiemposDescarga;
 		LinkedList<Long> tiemposCarga;
 		boolean isCargando = false;
+		boolean isFirstRun = true;
         
 		/*
 		 * Registro del Receiver del estado de la batería que mantendremos todo el tiempo
@@ -61,28 +74,63 @@ public class BatteryInfo extends AppWidgetProvider {
             tiemposDescarga = new LinkedList<Long>();
             tiemposCarga = new LinkedList<Long>();
             
+            // TODO cargar tiempos cacheados
+            
             BroadcastReceiver batteryReceiver = new BroadcastReceiver() {
 
  		        @Override
  		        public void onReceive(Context context, Intent intent) {
  		        	
+ 		        	if (isFirstRun) {
+ 		        		// en el primer lanzamiento, intentamos recuperar datos de la cache
+ 		        		File cacheDir = context.getFilesDir();
+ 		        		File cargaFile = new File(cacheDir,FILE_CARGA);
+ 		        		File descargaFile = new File(cacheDir,FILE_DESCARGA);
+ 		        		if (cargaFile.exists()) {
+ 		        			try {
+ 		        				String datos = inputStreamToString(context.openFileInput(FILE_CARGA));
+ 		        				String[] numeros = datos.split("[,]");
+ 		        				for (String s: numeros) {
+ 		        					try {
+ 		        						Long l = Long.parseLong(s);
+ 		        						Log.d(TAG,"cargado @ carga = "+l);
+ 		        						tiemposCarga.add(l);
+ 		        					} catch (Exception e2) { }
+ 		        				}
+ 		        			} catch (Exception ex) { }
+ 		        		}
+ 		        		if (descargaFile.exists()) {
+ 		        			try {
+ 		        				String datos = inputStreamToString(context.openFileInput(FILE_DESCARGA));
+ 		        				String[] numeros = datos.split("[,]");
+ 		        				for (String s: numeros) {
+ 		        					try {
+ 		        						Long l = Long.parseLong(s);
+ 		        						tiemposDescarga.add(l);
+ 		        						Log.d(TAG,"cargado @ descarga = "+l);
+ 		        					} catch (Exception e2) { }
+ 		        				}
+ 		        			} catch (Exception ex) { }
+ 		        		} 		        		
+ 		        	}
  		        	level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
  		        	long cuandoLevelActual  = System.currentTimeMillis();
  		        	boolean isCambioLevel = false;
  		        	if (levelAnterior!=-1 && cuandoLevelAnterior!=-1) {
  		        		long tmp = cuandoLevelActual-cuandoLevelAnterior;
-
+ 		        		isCambioLevel = true;
 	 		        	if (levelAnterior>level) { 				// está descargándose
-	 		        		isCargando = false;
-	 		        		isCambioLevel = true;
+	 		        		isCargando = false;	 		        		
 	 		        		Log.d(TAG,"descargandose");
 	 		        		tiemposDescarga.add(tmp);
+		 		        		
+	 		        		writeListToFile(context,tiemposDescarga,FILE_DESCARGA);
 	 		        		
 	 		        	} else if (level>levelAnterior) {		// está cargándose
 	 		        		isCargando = true;
-	 		        		isCambioLevel = true;
 	 		        		Log.d(TAG,"cargandose");
 	 		        		tiemposCarga.add(tmp);
+	 		        		writeListToFile(context,tiemposCarga,FILE_CARGA);
 	 		        	}
  		        	}
  		        	
@@ -91,16 +139,43 @@ public class BatteryInfo extends AppWidgetProvider {
  		            voltage = intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, -1);
  		            health = intent.getIntExtra(BatteryManager.EXTRA_HEALTH, -1);
  		            tech = intent.getStringExtra(BatteryManager.EXTRA_TECHNOLOGY);
- 		            Log.d(TAG, "level is "+level+"/"+scale+", temp is "+temp+", voltage is "+voltage);
  		            actualizar(context);
 
- 		            // guardamoss la información para el próximo cambio (sacar estadísticas más correctas)
- 		        	if (isCambioLevel) {
- 		        		levelAnterior = level;
+ 		            // guardamoss la información para el próximo cambio (sacar estadísticas más correctas) 		        	
+ 		        	levelAnterior = level;
+ 		        	
+ 		        	if (isCambioLevel||isFirstRun) {
  		        		cuandoLevelAnterior = cuandoLevelActual;
  		        	}
+ 		        	if (isFirstRun)
+ 		        		isFirstRun=false;
 
  		        }
+
+				private void writeListToFile(Context context, LinkedList<Long> td, String fileDescarga) {
+					
+					LinkedList<Long> theList = td;
+					if (td.size()>1000) {
+						theList = new LinkedList<Long>(td.subList(td.size()-1-1000, td.size()-1));
+					}
+					
+		        	String str = "";
+ 		        	for (Long l: theList) {
+ 		        		str+=l.toString()+",";
+ 		        	}
+ 		        	str = str.substring(0,str.length()-1);
+ 		        	
+					try {
+	 		        	File file = new File(context.getFilesDir(),fileDescarga);
+	 		        	PrintWriter writer = new PrintWriter(file);
+						writer.write(str);
+						writer.flush();
+						writer.close();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					Log.d(TAG,"archivo escrito "+fileDescarga);
+				}
  		    };
  		    
  		    IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
@@ -247,7 +322,33 @@ public class BatteryInfo extends AppWidgetProvider {
 			
 			return horas+"h"+minutos+"m";
 		}
-				
+		
+		/*
+		 * Mecanismos de lectura de ficheros / streams
+		 */
+		private String inputStreamToString(InputStream is)
+		{
+			ByteArrayOutputStream cont = new ByteArrayOutputStream(); 		
+			copyStream(is, cont);		
+			return new String(cont.toByteArray());
+		}
+		
+	    private void copyStream(InputStream is, OutputStream os)
+	    {
+	        final int buffer_size=1024;
+	        try
+	        {
+	            byte[] bytes=new byte[buffer_size];
+	            for(;;)
+	            {
+	              int count=is.read(bytes, 0, buffer_size);
+	              if(count==-1)
+	                  break;
+	              os.write(bytes, 0, count);
+	            }
+	        }
+	        catch(Exception ex){}
+	    }
 	}
 	
 }
