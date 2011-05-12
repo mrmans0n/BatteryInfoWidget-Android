@@ -68,17 +68,19 @@ public class BatteryInfo extends AppWidgetProvider {
  		        	
  		        	level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
  		        	long cuandoLevelActual  = System.currentTimeMillis();
-
+ 		        	boolean isCambioLevel = false;
  		        	if (levelAnterior!=-1 && cuandoLevelAnterior!=-1) {
  		        		long tmp = cuandoLevelActual-cuandoLevelAnterior;
 
 	 		        	if (levelAnterior>level) { 				// está descargándose
 	 		        		isCargando = false;
+	 		        		isCambioLevel = true;
 	 		        		Log.d(TAG,"descargandose");
 	 		        		tiemposDescarga.add(tmp);
 	 		        		
 	 		        	} else if (level>levelAnterior) {		// está cargándose
 	 		        		isCargando = true;
+	 		        		isCambioLevel = true;
 	 		        		Log.d(TAG,"cargandose");
 	 		        		tiemposCarga.add(tmp);
 	 		        	}
@@ -93,8 +95,10 @@ public class BatteryInfo extends AppWidgetProvider {
  		            actualizar(context);
 
  		            // guardamoss la información para el próximo cambio (sacar estadísticas más correctas)
- 		        	levelAnterior = level;
- 		        	cuandoLevelAnterior = cuandoLevelActual;
+ 		        	if (isCambioLevel) {
+ 		        		levelAnterior = level;
+ 		        		cuandoLevelAnterior = cuandoLevelActual;
+ 		        	}
 
  		        }
  		    };
