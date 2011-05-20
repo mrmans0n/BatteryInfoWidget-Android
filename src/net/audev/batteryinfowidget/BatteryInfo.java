@@ -154,10 +154,9 @@ public class BatteryInfo extends AppWidgetProvider {
 
 				private void writeListToFile(Context context, LinkedList<Long> td, String fileDescarga) {
 					
-					LinkedList<Long> theList = td;
-					if (td.size()>1000) {
-						theList = new LinkedList<Long>(td.subList(td.size()-1-1000, td.size()-1));
-					}
+					LinkedList<Long> theList = new LinkedList<Long>(td);
+					while (theList.size()>1000)
+						theList.remove(0);
 					
 		        	String str = "";
  		        	for (Long l: theList) {
