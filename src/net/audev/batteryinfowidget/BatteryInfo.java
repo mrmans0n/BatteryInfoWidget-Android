@@ -218,7 +218,7 @@ public class BatteryInfo extends AppWidgetProvider {
 						public void run()
 						{
 							Log.d(TAG,"Actualizando el widget (ya en thread ui)");
-							manager.updateAppWidget(thisWidget, updateViews);
+							if (manager!=null) manager.updateAppWidget(thisWidget, updateViews);
 						}
 					});
 				}
@@ -294,7 +294,7 @@ public class BatteryInfo extends AppWidgetProvider {
 		
 		private String getRemainingTime(int battLevel, int battScale, boolean isCharging) {
 			LinkedList<Long> tiempos;
-			int restantes = 0;
+			double restantes = 0.0;
 			
 			if (isCharging) {
 				tiempos = this.tiemposCarga;
@@ -314,11 +314,11 @@ public class BatteryInfo extends AppWidgetProvider {
 				sumatorio += ((double)l)/(1000.0*60.0); // pasamos a minutos
 			}			
 			
-			int media = (int)sumatorio / tiempos.size(); // calculamos la media aritmetica - lo que se supone que tarda
-			int total = media*restantes; // calculamos los minutos totales que tardará
+			double media = (double)sumatorio / (double)tiempos.size(); // calculamos la media aritmetica - lo que se supone que tarda
+			double total = Math.round(media*restantes); // calculamos los minutos totales que tardará
 			
-			int minutos = total/60;
-			int horas = total - (minutos*60);
+			int minutos = (int)(total/60.0);
+			int horas = (int)total - (minutos*60);
 			
 			return horas+"h"+minutos+"m";
 		}
