@@ -2,13 +2,9 @@ package net.audev.batteryinfowidget;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.io.StringReader;
 import java.util.LinkedList;
 
 import android.app.Service;
@@ -314,7 +310,6 @@ public class BatteryInfo extends AppWidgetProvider {
 			
 			for (Long l: tiempos) {
 				double valor = ((double)l)/(1000.0*60.0);
-				Log.d(TAG,"valor="+valor);
 				sumatorio +=  valor;// pasamos a minutos
 			}			
 			
