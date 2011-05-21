@@ -12,4 +12,5 @@
     <string name="batt_status_overvoltage">Over-voltage</string>
     <string name="batt_status_overheat">Overheat</string>
     <string name="clear_stats">Clear stored battery stats</string>
+    <string name="files_deleted_successfully">Files deleted successfully</string>
 </resources>

@@ -41,9 +41,9 @@ public class BatteryInfo extends AppWidgetProvider {
 	 * El servicio que lleva el peso de la aplicación
 	 */
 	public static class UpdateWidgetService extends Service {		
-		private static final String TAG = "BatteryInfo";
-		private static final String FILE_CARGA = "carga.dat";
-		private static final String FILE_DESCARGA = "descarga.dat";
+		public static final String TAG = "BatteryInfo";
+		public static final String FILE_CARGA = "carga.dat";
+		public static final String FILE_DESCARGA = "descarga.dat";
 		
 		String oldTitulo;
 		AppWidgetManager manager;
@@ -118,8 +118,9 @@ public class BatteryInfo extends AppWidgetProvider {
  		        	boolean isCambioLevel = false;
  		        	if (levelAnterior!=-1 && cuandoLevelAnterior!=-1) {
  		        		long tmp = cuandoLevelActual-cuandoLevelAnterior;
- 		        		isCambioLevel = true;
 	 		        	if (levelAnterior>level) { 				// está descargándose
+	 		        		isCambioLevel = true;
+
 	 		        		isCargando = false;	 		        		
 	 		        		Log.d(TAG,"descargandose = "+tmp);
 	 		        		tiemposDescarga.add(tmp);
@@ -127,6 +128,8 @@ public class BatteryInfo extends AppWidgetProvider {
 	 		        		writeListToFile(context,tiemposDescarga,FILE_DESCARGA);
 	 		        		
 	 		        	} else if (level>levelAnterior) {		// está cargándose
+	 		        		isCambioLevel = true;
+
 	 		        		isCargando = true;
 	 		        		Log.d(TAG,"cargandose = "+tmp);
 	 		        		tiemposCarga.add(tmp);
