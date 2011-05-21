@@ -121,14 +121,14 @@ public class BatteryInfo extends AppWidgetProvider {
  		        		isCambioLevel = true;
 	 		        	if (levelAnterior>level) { 				// está descargándose
 	 		        		isCargando = false;	 		        		
-	 		        		Log.d(TAG,"descargandose");
+	 		        		Log.d(TAG,"descargandose = "+tmp);
 	 		        		tiemposDescarga.add(tmp);
 		 		        		
 	 		        		writeListToFile(context,tiemposDescarga,FILE_DESCARGA);
 	 		        		
 	 		        	} else if (level>levelAnterior) {		// está cargándose
 	 		        		isCargando = true;
-	 		        		Log.d(TAG,"cargandose");
+	 		        		Log.d(TAG,"cargandose = "+tmp);
 	 		        		tiemposCarga.add(tmp);
 	 		        		writeListToFile(context,tiemposCarga,FILE_CARGA);
 	 		        	}
@@ -160,7 +160,7 @@ public class BatteryInfo extends AppWidgetProvider {
 					
 		        	String str = "";
  		        	for (Long l: theList) {
- 		        		str+=l.toString()+",";
+ 		        		str+=String.valueOf(l)+",";
  		        	}
  		        	str = str.substring(0,str.length()-1);
  		        	
@@ -294,7 +294,7 @@ public class BatteryInfo extends AppWidgetProvider {
 		private String getRemainingTime(int battLevel, int battScale, boolean isCharging) {
 			LinkedList<Long> tiempos;
 			double restantes = 0.0;
-			
+			Log.d(TAG,"++getRemainingTime");
 			if (isCharging) {
 				tiempos = this.tiemposCarga;
 				restantes = battScale-battLevel; // lo que falta hasta llegar a 100 (o al max que sea)
@@ -310,7 +310,9 @@ public class BatteryInfo extends AppWidgetProvider {
 			double sumatorio = 0.0;
 			
 			for (Long l: tiempos) {
-				sumatorio += ((double)l)/(1000.0*60.0); // pasamos a minutos
+				double valor = ((double)l)/(1000.0*60.0);
+				Log.d(TAG,"valor="+valor);
+				sumatorio +=  valor;// pasamos a minutos
 			}			
 			
 			double media = (double)sumatorio / (double)tiempos.size(); // calculamos la media aritmetica - lo que se supone que tarda

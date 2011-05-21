@@ -11,4 +11,5 @@
     <string name="batt_status_dead">Muerta</string>
     <string name="batt_status_overvoltage">Sobrevoltaje</string>
     <string name="batt_status_overheat">Sobrecalentada</string>
+    <string name="clear_stats">Limpiar valores almacenados</string>    
 </resources>

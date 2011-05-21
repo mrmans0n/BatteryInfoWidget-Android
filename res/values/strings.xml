@@ -11,4 +11,5 @@
     <string name="batt_status_dead">Dead</string>
     <string name="batt_status_overvoltage">Over-voltage</string>
     <string name="batt_status_overheat">Overheat</string>
+    <string name="clear_stats">Clear stored battery stats</string>
 </resources>

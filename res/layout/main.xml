@@ -4,10 +4,12 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
-    <ImageView android:layout_width="fill_parent" android:layout_height="wrap_content" android:src="@drawable/audev" android:id="@+id/imageView1"></ImageView>
-    <TextView android:id="@+id/TextView01" android:layout_height="wrap_content" android:text="Copyright (c) 2011 AUDev" android:layout_width="fill_parent" android:gravity="center"></TextView>
-    <TextView android:clickable="true" android:textColorLink="#0000ff" android:textStyle="bold" android:id="@+id/linkAUDev" android:linksClickable="true" android:layout_height="wrap_content" android:text="http://www.audev.net" android:layout_width="fill_parent" android:gravity="center"></TextView>
+    <ImageView android:layout_width="fill_parent" android:layout_height="wrap_content" android:src="@drawable/audev" android:id="@+id/logoAUDev"></ImageView>
+    <Spinner android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/spinnerTemperatura"></Spinner>
+    <Button android:layout_height="wrap_content" android:layout_width="fill_parent" android:text="@string/clear_stats" android:id="@+id/botonLimpiar"></Button>
 <TextView  
     android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" android:text="@string/this_is_a_widget" android:layout_marginTop="10dip"/>
+    android:layout_height="wrap_content" android:text="@string/this_is_a_widget" android:layout_marginTop="10dip" android:id="@+id/textFAQ"/>
+<TextView android:clickable="true" android:id="@+id/linkAUDev" android:gravity="center" android:layout_width="fill_parent" android:textColorLink="#0000ff" android:layout_height="wrap_content" android:text="http://www.audev.net" android:textStyle="bold" android:linksClickable="true"></TextView>
+<TextView android:gravity="center" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="Copyright (c) 2011 AUDev" android:id="@+id/textCopyright"></TextView>
 </LinearLayout>
