@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class BatteryInfoWidget extends Activity {
@@ -20,7 +21,7 @@ public class BatteryInfoWidget extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        context = this;
+        context = this;       
         
         Button boton = (Button)findViewById(R.id.botonLimpiar);
         boton.setOnClickListener(new OnClickListener() {

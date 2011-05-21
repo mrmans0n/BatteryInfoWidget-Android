@@ -38,8 +38,11 @@ public class BatteryInfo extends AppWidgetProvider {
 	 */
 	public static class UpdateWidgetService extends Service {		
 		public static final String TAG = "BatteryInfo";
-		public static final String FILE_CARGA = "carga.dat";
-		public static final String FILE_DESCARGA = "descarga.dat";
+		public static final String FILE_CARGA = "carga.data";
+		public static final String FILE_DESCARGA = "descarga.data";
+		private static final int MAX_ENTRIES = 1000;
+		
+		public static int accuracy = 0;
 		
 		String oldTitulo;
 		AppWidgetManager manager;
@@ -154,7 +157,7 @@ public class BatteryInfo extends AppWidgetProvider {
 				private void writeListToFile(Context context, LinkedList<Long> td, String fileDescarga) {
 					
 					LinkedList<Long> theList = new LinkedList<Long>(td);
-					while (theList.size()>1000)
+					while (theList.size()>MAX_ENTRIES)
 						theList.remove(0);
 					
 		        	String str = "";
@@ -316,8 +319,9 @@ public class BatteryInfo extends AppWidgetProvider {
 			double media = (double)sumatorio / (double)tiempos.size(); // calculamos la media aritmetica - lo que se supone que tarda
 			double total = Math.round(media*restantes); // calculamos los minutos totales que tardará
 			
-			int minutos = (int)(total/60.0);
-			int horas = (int)total - (minutos*60);
+			int horas = (int)total/60;
+			int minutos = (int)total % 60;
+
 			
 			return horas+"h"+minutos+"m";
 		}
