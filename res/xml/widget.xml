@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appwidget-provider
-  xmlns:android="http://schemas.android.com/apk/res/android" android:updatePeriodMillis="1800000" android:initialLayout="@layout/battwidget" android:minHeight="72dip" android:minWidth="146dip">
+  xmlns:android="http://schemas.android.com/apk/res/android" android:updatePeriodMillis="1800000" android:initialLayout="@layout/battwidget_redux" android:minHeight="72dip" android:minWidth="72dip">
 </appwidget-provider>

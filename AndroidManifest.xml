@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="net.audev.batteryinfowidget"
-      android:versionCode="121" android:versionName="1.2.1">
+      android:versionCode="122" android:versionName="1.2.2">
     <uses-sdk android:minSdkVersion="7" />
 
     <application android:label="@string/app_name" android:icon="@drawable/launcher">
@@ -12,11 +12,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-		<receiver android:name=".BatteryInfo" android:label="@string/app_name" android:icon="@drawable/icon">
+		<receiver android:name=".BatteryInfo" android:label="@string/app_name" android:icon="@drawable/launcher">
 			<intent-filter>
 				<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
 			</intent-filter>
 			<meta-data android:name="android.appwidget.provider" android:resource="@xml/widget" />			
+		</receiver>		
+		<receiver android:name=".BatteryInfoRedux" android:label="@string/app_name" android:icon="@drawable/launcher">
+			<intent-filter>
+				<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+			</intent-filter>
+			<meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_redux" />			
 		</receiver>
 		<service android:name =".BatteryInfo$UpdateWidgetService" android:label="@string/app_name"/>
     </application>

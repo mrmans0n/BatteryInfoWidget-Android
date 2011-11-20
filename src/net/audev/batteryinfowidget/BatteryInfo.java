@@ -72,9 +72,7 @@ public class BatteryInfo extends AppWidgetProvider {
             Log.d(TAG,"++ onCreate");
             tiemposDescarga = new LinkedList<Long>();
             tiemposCarga = new LinkedList<Long>();
-            
-            // TODO cargar tiempos cacheados
-            
+                       
             BroadcastReceiver batteryReceiver = new BroadcastReceiver() {
 
  		        @Override
@@ -246,9 +244,8 @@ public class BatteryInfo extends AppWidgetProvider {
 			if (porcentaje<25)
 				views.setTextColor(R.id.nivel, Color.RED);
 			
-			
 			views.setTextViewText(R.id.nivel, porcentaje.intValue()+"%");
-			views.setTextViewText(R.id.temp, ((double)temp/10.0)+"ºC "+voltage+"V");
+			views.setTextViewText(R.id.temp, ((double)temp/10.0)+"ºC "+voltage+"mV");
 			
 			if (isCargando) {
 				views.setTextViewText(R.id.estado, context.getString(R.string.batt_charging));
