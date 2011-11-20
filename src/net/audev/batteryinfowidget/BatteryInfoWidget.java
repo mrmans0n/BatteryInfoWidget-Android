@@ -2,8 +2,6 @@ package net.audev.batteryinfowidget;
 
 import java.io.File;
 
-import net.audev.batteryinfowidget.BatteryInfo.UpdateWidgetService;
-
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -28,8 +26,8 @@ public class BatteryInfoWidget extends Activity {
 			@Override
 			public void onClick(View arg0) {
         		File cacheDir = context.getFilesDir();
-		        File cargaFile = new File(cacheDir,UpdateWidgetService.FILE_CARGA);
-		        File descargaFile = new File(cacheDir,UpdateWidgetService.FILE_DESCARGA);
+		        File cargaFile = new File(cacheDir,BatteryInfoData.FILE_CARGA);
+		        File descargaFile = new File(cacheDir,BatteryInfoData.FILE_DESCARGA);
 		        if (cargaFile.exists())
 		        	cargaFile.delete();
 		        if (descargaFile.exists())
